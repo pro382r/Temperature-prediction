@@ -16,6 +16,8 @@ def load_data():
     return df
 
 df = load_data()
+# Jodi file-ti GitHub-er main folder-e thake:
+df = pd.read_csv('Weather_Data.csv')
 
 # Model Train kora (User input er agei background e hobe)
 X = df[['MinTemp', 'Rainfall', 'Humidity3pm', 'Pressure3pm', 'RainToday']]
@@ -52,4 +54,5 @@ st.write(input_df)
 prediction = model.predict(input_df)
 
 st.subheader('Predicted Maximum Temperature:')
+
 st.write(f"### {prediction[0]:.2f} °C")
