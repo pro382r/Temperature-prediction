@@ -55,9 +55,9 @@ The project uses **Weather_Data.csv**, featuring:
 ## 📝 License
 This project is open-source and created for educational purposes.
 
-**Developed by MD. Reahoon Zannah**
-ID: 223002038
-Course Name: Machine Learning
-Section: 223-D4
-Dept. of CSE
+**Developed by MD. Reahoon Zannah**\
+ID: 223002038\
+Course Name: Machine Learning\
+Section: 223-D4\
+Dept. of CSE\
 Green University of Bangladesh
