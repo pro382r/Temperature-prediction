@@ -6,7 +6,7 @@ A professional, interactive machine learning web application built with **Stream
 
 ## 🚀 Live Demo
 
-👉 **[Click here to view the app](https://your-app-url.streamlit.app)**
+👉 **[Click here to view the app](https://temperature-prediction-linear-regression.streamlit.app/)**
 
 ---
 
@@ -42,7 +42,7 @@ The project uses **Weather_Data.csv**, featuring:
 
 1. **Clone the repo**  
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/pro382r/Temperature-prediction.git
    ```
 2. **Install requirements**
    ```bash
