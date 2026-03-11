@@ -4,22 +4,62 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 import os
 
-# --- Page Config ---
-st.set_page_config(page_title="Temperature Predictor", page_icon="🌡️")
+# --- Page Config & Styling ---
+st.set_page_config(page_title="Weather Predictor Pro", page_icon="🌡️", layout="wide")
 
-st.title("🌡️ Weather Temperature Prediction App")
-st.write("Linear Regression bebohar kore Max Temperature predict kora hocche.")
+# Custom CSS for UI Enhancement
+st.markdown(f"""
+    <style>
+    /* Main Background and Sidebar */
+    .stApp {{
+        background-color: #DBE4EE;
+    }}
+    .css-1d391kg {{
+        background-color: #054A91;
+    }}
+    
+    /* Headers */
+    h1, h2, h3 {{
+        color: #054A91;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }}
 
-# --- Dataset Load (With Error Handling) ---
+    /* Prediction Box Styling */
+    .prediction-card {{
+        background-color: #054A91;
+        padding: 30px;
+        border-radius: 15px;
+        color: #FFFFFF;
+        text-align: center;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+        border-left: 10px solid #F17300;
+    }}
+    .prediction-value {{
+        font-size: 50px;
+        font-weight: bold;
+        color: #F17300;
+    }}
+    
+    /* Button and Sliders */
+    .stSlider > div > div > div > div {{
+        background-color: #3E7CB1;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
+# --- App Title ---
+st.markdown("<h1 style='text-align: center;'>🌡️ Weather Temperature Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #3E7CB1;'>Using Linear Regression for Accurate Forecasting</p>", unsafe_allow_html=True)
+st.divider()
+
+# --- Dataset Load ---
 file_name = 'Weather_Data.csv'
 
 @st.cache_data
 def load_and_preprocess_data(file):
     if not os.path.exists(file):
         return None
-    
     df = pd.read_csv(file)
-    # Basic Preprocessing
     df = df.dropna(subset=['MinTemp', 'MaxTemp', 'Rainfall', 'Humidity3pm', 'Pressure3pm', 'RainToday'])
     df['RainToday'] = df['RainToday'].map({'Yes': 1, 'No': 0})
     return df
@@ -28,7 +68,6 @@ df = load_and_preprocess_data(file_name)
 
 if df is None:
     st.error(f"❌ '{file_name}' file-ti GitHub-e pawa jachhe na!")
-    st.info("Solution: GitHub-e jekhane app.py ache, thik shei folder-e Weather_Data.csv file-ti upload koro.")
     st.stop()
 
 # --- Model Training ---
@@ -37,42 +76,40 @@ y = df['MaxTemp']
 model = LinearRegression()
 model.fit(X, y)
 
-# --- Sidebar Inputs ---
-st.sidebar.header("User Input (Features)")
+# --- Layout: Columns for Input and Output ---
+col_in, col_out = st.columns([1, 1.2], gap="large")
 
-def get_user_inputs():
-    min_t = st.sidebar.slider('Minimum Temperature (°C)', float(df.MinTemp.min()), float(df.MinTemp.max()), float(df.MinTemp.mean()))
-    rain = st.sidebar.slider('Rainfall (mm)', float(df.Rainfall.min()), float(df.Rainfall.max()), float(df.Rainfall.mean()))
-    hum = st.sidebar.slider('Humidity at 3pm (%)', float(df.Humidity3pm.min()), float(df.Humidity3pm.max()), float(df.Humidity3pm.mean()))
-    press = st.sidebar.slider('Pressure at 3pm (hPa)', float(df.Pressure3pm.min()), float(df.Pressure3pm.max()), float(df.Pressure3pm.mean()))
-    rt = st.sidebar.selectbox('Rain Today?', ['No', 'Yes'])
-    rt_val = 1 if rt == 'Yes' else 0
-    
-    return pd.DataFrame({
-        'MinTemp': [min_t],
-        'Rainfall': [rain],
-        'Humidity3pm': [hum],
-        'Pressure3pm': [press],
-        'RainToday': [rt_val]
+with col_in:
+    st.markdown("### 🛠️ Input Parameters")
+    with st.container():
+        min_t = st.slider('Minimum Temperature (°C)', float(df.MinTemp.min()), float(df.MinTemp.max()), float(df.MinTemp.mean()))
+        rain = st.slider('Rainfall (mm)', float(df.Rainfall.min()), float(df.Rainfall.max()), float(df.Rainfall.mean()))
+        hum = st.slider('Humidity at 3pm (%)', float(df.Humidity3pm.min()), float(df.Humidity3pm.max()), float(df.Humidity3pm.mean()))
+        press = st.slider('Pressure at 3pm (hPa)', float(df.Pressure3pm.min()), float(df.Pressure3pm.max()), float(df.Pressure3pm.mean()))
+        rt = st.selectbox('Rain Today?', ['No', 'Yes'])
+        rt_val = 1 if rt == 'Yes' else 0
+
+with col_out:
+    st.markdown("### 🎯 Prediction Analysis")
+    user_input = pd.DataFrame({
+        'MinTemp': [min_t], 'Rainfall': [rain], 
+        'Humidity3pm': [hum], 'Pressure3pm': [press], 'RainToday': [rt_val]
     })
+    
+    prediction = model.predict(user_input)[0]
+    
+    # Stunning Prediction Card
+    st.markdown(f"""
+        <div class="prediction-card">
+            <h3>Predicted Maximum Temperature</h3>
+            <div class="prediction-value">{prediction:.2f} °C</div>
+            <p style="color: #DBE4EE;">Based on current meteorological inputs</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.write("")
+    st.info("ℹ️ Tip: Adjust the sliders on the left to see how temperature changes in real-time.")
 
-user_df = get_user_inputs()
-
-# --- Prediction Result ---
-st.subheader("Prediction Results")
-col1, col2 = st.columns(2)
-
-prediction = model.predict(user_df)
-
-with col1:
-    st.markdown("### Input Data")
-    st.write(user_df)
-
-with col2:
-    st.markdown("### Predicted Max Temp")
-    st.success(f"## {prediction[0]:.2f} °C")
-
-# --- Visual Comparison (Optional) ---
+# --- Bottom Info ---
 st.divider()
-st.subheader("Model Insights")
-st.write(f"Dataset-e total record ache: {len(df)}")
+st.markdown(f"<p style='text-align: center; color: #054A91;'>Model Accuracy: <b>{model.score(X, y)*100:.2f}%</b> | Dataset Size: {len(df)} rows</p>", unsafe_allow_html=True)
