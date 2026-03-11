@@ -43,7 +43,7 @@ st.markdown(f"""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center;'>🌡️ Weather Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'> Weather Predictor</h1>", unsafe_allow_html=True)
 st.divider()
 
 # --- Load Data ---
@@ -92,3 +92,4 @@ with col2:
 
 st.divider()
 st.markdown("<p style='text-align: center;'>Developed with ❤️ for Temperature Prediction Project</p>", unsafe_allow_html=True)
+
