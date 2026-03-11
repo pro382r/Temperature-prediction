@@ -12,7 +12,7 @@ st.markdown(f"""
     <style>
     /* Main Background and Sidebar */
     .stApp {{
-        background-color: #F2F5DE;
+        background-color: #7D2DC4;
     }}
     .css-1d391kg {{
         background-color: #054A91;
@@ -113,4 +113,5 @@ with col_out:
 # --- Bottom Info ---
 st.divider()
 st.markdown(f"<p style='text-align: center; color: #054A91;'>Model Accuracy: <b>{model.score(X, y)*100:.2f}%</b> | Dataset Size: {len(df)} rows</p>", unsafe_allow_html=True)
+
 
