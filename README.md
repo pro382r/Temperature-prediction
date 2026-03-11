@@ -19,6 +19,14 @@ A professional, interactive machine learning web application built with **Stream
 
 ---
 
+## 📚 Research Reference
+
+This project is inspired by and references the research paper:  
+**["Machine learning-based prediction of daily maximum temperature: A case study"](https://www.sciencedirect.com/science/article/pii/S001670612100731X)**  
+Published in *ScienceDirect* (Geoderma, 2021)
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Python** (Core Language)
