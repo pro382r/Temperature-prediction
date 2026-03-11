@@ -12,7 +12,7 @@ st.markdown(f"""
     <style>
     /* Main Background and Sidebar */
     .stApp {{
-        background-color: #DBE4EE;
+        background-color: #F2F5DE;
     }}
     .css-1d391kg {{
         background-color: #054A91;
@@ -48,7 +48,7 @@ st.markdown(f"""
     """, unsafe_allow_html=True)
 
 # --- App Title ---
-st.markdown("<h1 style='text-align: center;'>🌡️ Weather Temperature Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'> Weather Temperature Predictor</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #3E7CB1;'>Using Linear Regression for Accurate Forecasting</p>", unsafe_allow_html=True)
 st.divider()
 
@@ -113,3 +113,4 @@ with col_out:
 # --- Bottom Info ---
 st.divider()
 st.markdown(f"<p style='text-align: center; color: #054A91;'>Model Accuracy: <b>{model.score(X, y)*100:.2f}%</b> | Dataset Size: {len(df)} rows</p>", unsafe_allow_html=True)
+
