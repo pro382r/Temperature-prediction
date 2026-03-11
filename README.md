@@ -50,7 +50,7 @@ The project uses **Weather_Data.csv**, featuring:
    ```
 3. **Launch the app**
    ```bash
-  streamlit run app.py
+   streamlit run app.py
    ```
 ## 📝 License
 This project is open-source and created for educational purposes.
