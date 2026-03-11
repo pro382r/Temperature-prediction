@@ -91,5 +91,6 @@ with col2:
         """, unsafe_allow_html=True)
 
 st.divider()
-st.markdown("<p style='text-align: center;'>Developed with ❤️ for Temperature Prediction Project</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>This project builded by Md. Reahoon Zannah (ID: 223002038)</p>", unsafe_allow_html=True)
+
 
